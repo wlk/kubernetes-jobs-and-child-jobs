@@ -1,4 +1,3 @@
-import io.fabric8.kubernetes.api.model.Pod
 import io.fabric8.kubernetes.client.DefaultKubernetesClient
 
 import scala.concurrent.{Await, Future}
@@ -50,14 +49,21 @@ object Main extends App {
     println(s"Pod $podName successfully deleted: $deleteResult")
   }
 
-  val c = new DefaultKubernetesClient("https://192.168.99.100:8443")
+  //KUBERNETES_SERVICE_HOST
+
+  val kubernetesHostSystem = System.getenv("KUBERNETES_SERVICE_HOST")
+  val kubernetesHostMinikube = "https://192.168.99.100:8443"
+
+  val kubernetesHost = if(kubernetesHostSystem == null || kubernetesHostSystem.isEmpty) kubernetesHostMinikube else s"https://$kubernetesHostSystem:443"
+
+  val c = new DefaultKubernetesClient(kubernetesHost)
 
   val time = System.currentTimeMillis() / 1000
 
   val podName = s"test0-$time"
   val namespace = "default"
 
-  val pods = List(s"test1-$time", s"test2-$time", s"test3-$time", s"test4-$time", s"test5-$time", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l")
+  val pods = List(s"test1-$time", s"test2-$time", s"test3-$time", s"test4-$time", s"test5-$time")
 
   println(s"Starting pods: $pods")
 
