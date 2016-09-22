@@ -49,8 +49,6 @@ object Main extends App {
     println(s"Pod $podName successfully deleted: $deleteResult")
   }
 
-  //KUBERNETES_SERVICE_HOST
-
   val kubernetesHostSystem = System.getenv("KUBERNETES_SERVICE_HOST")
   val kubernetesHostMinikube = "https://192.168.99.100:8443"
 

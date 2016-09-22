@@ -55,3 +55,16 @@ BTW. The same pattern can be used to start real services, more information: `kub
 There is no way to manually restart a job, so for example if I create job defined via yaml, there is no way to reuse that definition
 So for our use case it's not possible to create a parametrized job that can be triggered to start periodically with a set of parameters
 
+# Summary
+
+The more straighforward way to starting k8s jobs is to follow the `kubectl run` pattern, this is what I did in the `Main` object.  
+
+I'm able to start the jobs from the outside of the k8s cluster, but it also works from the inside (a pod can start more pods).
+
+In order to achieve this, you need to package your application inside the container and use `KUBERNETES_SERVICE_HOST` as location of the k8s master (which shows that the aggregation job can be started from the Jenkins as well as from the future k8s cron)
+
+I also haven't spent any time looking at the failures and timeouts, but the real application will need to handle this (note that a part of failures will be handled by `--restart=OnFailure` parameter)
+
+Using `kubernetes-client` from the fabric8 is a little bit cumbersome but it's probably not that bad as well. 
+
+Also `Minikube` is perfect for testing out stuff locally
