@@ -4,6 +4,11 @@ Scope of the project:
 * Top level job can start child jobs
 * And monitor their completion state
 
+## Libraries and tools
+* Minikube: https://github.com/kubernetes/minikube  
+  Local on-demand kubernetes clusters, easy way to create/destroy them
+* kubernetes-client: https://github.com/fabric8io/kubernetes-client  
+  Java Kubernetes client library, works well in Scala
 
 #Starting k8s Jobs 101
 
